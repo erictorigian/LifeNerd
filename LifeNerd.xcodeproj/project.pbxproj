@@ -14,6 +14,8 @@
 		07EDCE4124D87E210031B29E /* LifeNerd.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 07EDCE3F24D87E210031B29E /* LifeNerd.xcdatamodeld */; };
 		07EDCE4324D87E310031B29E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07EDCE4224D87E310031B29E /* Assets.xcassets */; };
 		07EDCE4624D87E310031B29E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07EDCE4424D87E310031B29E /* LaunchScreen.storyboard */; };
+		07EDCE6424D8946B0031B29E /* Task+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07EDCE6224D8946B0031B29E /* Task+CoreDataClass.swift */; };
+		07EDCE6924D899820031B29E /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07EDCE6824D899820031B29E /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,9 @@
 		07EDCE4224D87E310031B29E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07EDCE4524D87E310031B29E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07EDCE4724D87E310031B29E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07EDCE6224D8946B0031B29E /* Task+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataClass.swift"; sourceTree = "<group>"; };
+		07EDCE6624D899730031B29E /* LifeNerd.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LifeNerd.entitlements; sourceTree = "<group>"; };
+		07EDCE6824D899820031B29E /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07EDCE6924D899820031B29E /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +50,7 @@
 			children = (
 				07EDCE3524D87E210031B29E /* LifeNerd */,
 				07EDCE3424D87E210031B29E /* Products */,
+				07EDCE6724D899820031B29E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,16 +65,50 @@
 		07EDCE3524D87E210031B29E /* LifeNerd */ = {
 			isa = PBXGroup;
 			children = (
+				07EDCE6624D899730031B29E /* LifeNerd.entitlements */,
+				07EDCE4F24D885C10031B29E /* Controllers */,
+				07EDCE4E24D8809A0031B29E /* Views */,
+				07EDCE4D24D880940031B29E /* Model */,
 				07EDCE3624D87E210031B29E /* AppDelegate.swift */,
 				07EDCE3824D87E210031B29E /* SceneDelegate.swift */,
-				07EDCE3A24D87E210031B29E /* ViewController.swift */,
-				07EDCE3C24D87E210031B29E /* Main.storyboard */,
 				07EDCE4224D87E310031B29E /* Assets.xcassets */,
-				07EDCE4424D87E310031B29E /* LaunchScreen.storyboard */,
 				07EDCE4724D87E310031B29E /* Info.plist */,
 				07EDCE3F24D87E210031B29E /* LifeNerd.xcdatamodeld */,
 			);
 			path = LifeNerd;
+			sourceTree = "<group>";
+		};
+		07EDCE4D24D880940031B29E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				07EDCE6224D8946B0031B29E /* Task+CoreDataClass.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		07EDCE4E24D8809A0031B29E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				07EDCE4424D87E310031B29E /* LaunchScreen.storyboard */,
+				07EDCE3C24D87E210031B29E /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		07EDCE4F24D885C10031B29E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				07EDCE3A24D87E210031B29E /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		07EDCE6724D899820031B29E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				07EDCE6824D899820031B29E /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +184,7 @@
 			files = (
 				07EDCE3B24D87E210031B29E /* ViewController.swift in Sources */,
 				07EDCE3724D87E210031B29E /* AppDelegate.swift in Sources */,
+				07EDCE6424D8946B0031B29E /* Task+CoreDataClass.swift in Sources */,
 				07EDCE4124D87E210031B29E /* LifeNerd.xcdatamodeld in Sources */,
 				07EDCE3924D87E210031B29E /* SceneDelegate.swift in Sources */,
 			);
@@ -288,6 +330,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LifeNerd/LifeNerd.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C57K6822B6;
 				INFOPLIST_FILE = LifeNerd/Info.plist;
@@ -306,6 +349,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LifeNerd/LifeNerd.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C57K6822B6;
 				INFOPLIST_FILE = LifeNerd/Info.plist;
