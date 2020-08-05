@@ -7,11 +7,16 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    var taskList = Task.fetchAll()
+    var taskList:[Task]?
     
+    //Reference to the managed object context
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+       
     var enteredTask = ""
 
     @IBOutlet weak var taskTextField: UITextField!
@@ -22,6 +27,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        //get items from CoreData
+        fetchTask()
+        
     }
 
     @IBAction func addButtonTapped(_ sender: Any) {
@@ -29,42 +41,57 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     @IBAction func resetButtonTapped(_ sender: Any) {
-        deleteAllTask()
+        //reset the database - removed this and will add something better here
     }
     
+    //MARK - Functions
+    func fetchTask() {
+        //fetch the data from CoreData to display in tableView
+        do {
+            self.taskList = try context.fetch(Task.fetchRequest())
+            
+            //do the update on the main thread - this lets this allows the function to be called from the background
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+    
+        }
+        catch {
+            print("Error fetching tasks from CoreData")
+        }
+        
+    }
     
     private func addNewTask() {
         self.enteredTask = taskTextField.text!
         
         saveTask(named: self.enteredTask)
         
-        self.taskList = Task.fetchAll()
-        
-        tableView.reloadData()
+        self.fetchTask()
         
         taskTextField.text = ""
     }
     
     private func saveTask(named name: String) {
-        let task = Task(context: AppDelegate.viewContext)
+        let task = Task(context: self.context)
         
         task.taskName = name
         
-        try? AppDelegate.viewContext.save()
+        do {
+            try self.context.save()
+        }
+        catch {
+            print("error saving to CoreData")
+        }
+        
+        self.fetchTask()
     }
     
-    private func deleteAllTask() {
-        Task.deleteAll()
         
-        taskList = Task.fetchAll()
-        
-        tableView.reloadData()
-    }
-    
     //MARK - tableView functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return taskList.count
+        return taskList!.count
         
     }
     
@@ -72,9 +99,33 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let cell = UITableViewCell(style: .default, reuseIdentifier: "taskCell" )
         
-        cell.textLabel?.text = "- " + taskList[indexPath.row].taskName!
+        cell.textLabel?.text = "- " + (taskList?[indexPath.row].taskName!)!
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
+            
+            //Which task to delete
+            let taskToDelete = self.taskList![indexPath.row]
+            
+            //remove the task
+            self.context.delete(taskToDelete)
+            //save the context
+            do {
+                try self.context.save()
+            }
+            catch {
+                print("Error saving after delete")
+            }
+            
+            //fetch the data
+            self.fetchTask()
+                       
+        }
+        
+        return UISwipeActionsConfiguration(actions: [action])
     }
 
     
